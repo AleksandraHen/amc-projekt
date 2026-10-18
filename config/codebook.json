@@ -1,0 +1,80 @@
+
+{
+  "version": "1.0",
+  "automation": {
+    "output_variable": "full_automation",
+    "rule": {
+      "automated_detection": true,
+      "automated_decision": "AUTOMATED_DECISION_FULLY"
+    },
+    "missing_values": "UNKNOWN"
+  },
+  "derived_variables": {
+    "termination": {
+      "operator": "OR",
+      "rules": [
+        {
+          "variable": "decision_account",
+          "equals": "DECISION_ACCOUNT_TERMINATED"
+        },
+        {
+          "variable": "decision_provision",
+          "equals": "DECISION_PROVISION_TOTAL_TERMINATION"
+        }
+      ]
+    },
+    "suspension": {
+      "operator": "OR",
+      "rules": [
+        {
+          "variable": "decision_account",
+          "equals": "DECISION_ACCOUNT_SUSPENDED"
+        },
+        {
+          "variable": "decision_provision",
+          "starts_with": "DECISION_PROVISION_PARTIAL_"
+        }
+      ]
+    },
+    "content_removal": {
+      "operator": "OR",
+      "rules": [
+        {
+          "variable": "DECISION_VISIBILITY_CONTENT_REMOVED",
+          "equals": true
+        },
+        {
+          "variable": "DECISION_VISIBILITY_CONTENT_DISABLED",
+          "equals": true
+        }
+      ]
+    },
+    "visibility_restriction": {
+      "operator": "OR",
+      "rules": [
+        {
+          "variable": "DECISION_VISIBILITY_CONTENT_DEMOTED",
+          "equals": true
+        },
+        {
+          "variable": "DECISION_VISIBILITY_CONTENT_AGE_RESTRICT",
+          "equals": true
+        },
+        {
+          "variable": "DECISION_VISIBILITY_CONTENT_INTERACT_RESTRICT",
+          "equals": true
+        },
+        {
+          "variable": "DECISION_VISIBILITY_CONTENT_LABELLED",
+          "equals": true
+        }
+      ]
+    }
+  },
+  "general_rules": {
+    "preserve_source_values": true,
+    "missing_values_are_not_false": true,
+    "sanctions_can_coexist": true,
+    "unknown_codes_must_be_reported": true
+  }
+}

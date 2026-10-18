@@ -1,0 +1,166 @@
+
+{
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "AUTO_001",
+      "variable": "full_automation",
+      "inputs": {
+        "automated_detection": true,
+        "automated_decision": "AUTOMATED_DECISION_FULLY"
+      },
+      "expected": true
+    },
+    {
+      "id": "AUTO_002",
+      "variable": "full_automation",
+      "inputs": {
+        "automated_detection": true,
+        "automated_decision": "AUTOMATED_DECISION_PARTIALLY"
+      },
+      "expected": false
+    },
+    {
+      "id": "AUTO_003",
+      "variable": "full_automation",
+      "inputs": {
+        "automated_detection": false,
+        "automated_decision": "AUTOMATED_DECISION_FULLY"
+      },
+      "expected": false
+    },
+    {
+      "id": "AUTO_004",
+      "variable": "full_automation",
+      "inputs": {
+        "automated_detection": false,
+        "automated_decision": "AUTOMATED_DECISION_NOT_AUTOMATED"
+      },
+      "expected": false
+    },
+    {
+      "id": "DER_001",
+      "variable": "termination",
+      "inputs": {
+        "decision_account": "DECISION_ACCOUNT_TERMINATED",
+        "decision_provision": null
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_002",
+      "variable": "termination",
+      "inputs": {
+        "decision_account": null,
+        "decision_provision": "DECISION_PROVISION_TOTAL_TERMINATION"
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_003",
+      "variable": "termination",
+      "inputs": {
+        "decision_account": "DECISION_ACCOUNT_SUSPENDED",
+        "decision_provision": "DECISION_PROVISION_PARTIAL_SUSPENSION"
+      },
+      "expected": false
+    },
+    {
+      "id": "DER_004",
+      "variable": "suspension",
+      "inputs": {
+        "decision_account": "DECISION_ACCOUNT_SUSPENDED",
+        "decision_provision": null
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_005",
+      "variable": "suspension",
+      "inputs": {
+        "decision_account": null,
+        "decision_provision": "DECISION_PROVISION_PARTIAL_SUSPENSION"
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_006",
+      "variable": "suspension",
+      "inputs": {
+        "decision_account": null,
+        "decision_provision": "DECISION_PROVISION_PARTIAL_TERMINATION"
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_007",
+      "variable": "content_removal",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_REMOVED": true,
+        "DECISION_VISIBILITY_CONTENT_DISABLED": false
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_008",
+      "variable": "content_removal",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_REMOVED": false,
+        "DECISION_VISIBILITY_CONTENT_DISABLED": true
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_009",
+      "variable": "content_removal",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_REMOVED": false,
+        "DECISION_VISIBILITY_CONTENT_DISABLED": false
+      },
+      "expected": false
+    },
+    {
+      "id": "DER_010",
+      "variable": "visibility_restriction",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_DEMOTED": true
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_011",
+      "variable": "visibility_restriction",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICT": true
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_012",
+      "variable": "visibility_restriction",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_INTERACT_RESTRICT": true
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_013",
+      "variable": "visibility_restriction",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_LABELLED": true
+      },
+      "expected": true
+    },
+    {
+      "id": "DER_014",
+      "variable": "visibility_restriction",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_DEMOTED": false,
+        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICT": false,
+        "DECISION_VISIBILITY_CONTENT_INTERACT_RESTRICT": false,
+        "DECISION_VISIBILITY_CONTENT_LABELLED": false
+      },
+      "expected": false
+    }
+  ]
+}
