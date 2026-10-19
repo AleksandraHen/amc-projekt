@@ -1,0 +1,210 @@
+{
+  "verdict": "WARN",
+  "dataset_rows": 1341968,
+  "gold_cases": 18,
+  "validation_results": 18,
+  "status_counts": {
+    "PASS": 15,
+    "NOT_OBSERVED": 3
+  },
+  "results": [
+    {
+      "case": "AUTO_001",
+      "variable": "full_automation",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 564173}",
+      "status": "PASS",
+      "rows": 564173,
+      "matching_rows": 564173,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "AUTO_002",
+      "variable": "full_automation",
+      "expected": "FALSE",
+      "actual_values": "{\"FALSE\": 420669}",
+      "status": "PASS",
+      "rows": 420669,
+      "matching_rows": 420669,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "AUTO_003",
+      "variable": "full_automation",
+      "expected": "FALSE",
+      "actual_values": "{\"FALSE\": 68955}",
+      "status": "PASS",
+      "rows": 68955,
+      "matching_rows": 68955,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "AUTO_004",
+      "variable": "full_automation",
+      "expected": "FALSE",
+      "actual_values": "{\"FALSE\": 201250}",
+      "status": "PASS",
+      "rows": 201250,
+      "matching_rows": 201250,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_001",
+      "variable": "termination",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 408039}",
+      "status": "PASS",
+      "rows": 408039,
+      "matching_rows": 408039,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_002",
+      "variable": "termination",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 199}",
+      "status": "PASS",
+      "rows": 199,
+      "matching_rows": 199,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_003",
+      "variable": "termination",
+      "expected": "FALSE",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
+    },
+    {
+      "case": "DER_004",
+      "variable": "suspension",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 24}",
+      "status": "PASS",
+      "rows": 24,
+      "matching_rows": 24,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_005",
+      "variable": "suspension",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 2359}",
+      "status": "PASS",
+      "rows": 2359,
+      "matching_rows": 2359,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_006",
+      "variable": "suspension",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 12834}",
+      "status": "PASS",
+      "rows": 12834,
+      "matching_rows": 12834,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_007",
+      "variable": "content_removal",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 463419}",
+      "status": "PASS",
+      "rows": 463419,
+      "matching_rows": 463419,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_008",
+      "variable": "content_removal",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 159080}",
+      "status": "PASS",
+      "rows": 159080,
+      "matching_rows": 159080,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_009",
+      "variable": "content_removal",
+      "expected": "FALSE",
+      "actual_values": "{\"FALSE\": 719469}",
+      "status": "PASS",
+      "rows": 719469,
+      "matching_rows": 719469,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_010",
+      "variable": "visibility_restriction",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 967}",
+      "status": "PASS",
+      "rows": 967,
+      "matching_rows": 967,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_011",
+      "variable": "visibility_restriction",
+      "expected": "TRUE",
+      "actual_values": "{\"TRUE\": 28275}",
+      "status": "PASS",
+      "rows": 28275,
+      "matching_rows": 28275,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_012",
+      "variable": "visibility_restriction",
+      "expected": "TRUE",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
+    },
+    {
+      "case": "DER_013",
+      "variable": "visibility_restriction",
+      "expected": "TRUE",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
+    },
+    {
+      "case": "DER_014",
+      "variable": "visibility_restriction",
+      "expected": "FALSE",
+      "actual_values": "{\"FALSE\": 1312726}",
+      "status": "PASS",
+      "rows": 1312726,
+      "matching_rows": 1312726,
+      "mismatching_rows": 0,
+      "error": ""
+    }
+  ]
+}
