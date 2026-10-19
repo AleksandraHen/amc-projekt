@@ -57,11 +57,11 @@
           "equals": true
         },
         {
-          "variable": "DECISION_VISIBILITY_CONTENT_AGE_RESTRICT",
+          "variable": "DECISION_VISIBILITY_CONTENT_AGE_RESTRICTED",
           "equals": true
         },
         {
-          "variable": "DECISION_VISIBILITY_CONTENT_INTERACT_RESTRICT",
+          "variable": "DECISION_VISIBILITY_CONTENT_INTERACTION_RESTRICTED",
           "equals": true
         },
         {

@@ -131,7 +131,7 @@
       "id": "DER_011",
       "variable": "visibility_restriction",
       "inputs": {
-        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICT": true
+        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICTED": true
       },
       "expected": true
     },
@@ -139,7 +139,7 @@
       "id": "DER_012",
       "variable": "visibility_restriction",
       "inputs": {
-        "DECISION_VISIBILITY_CONTENT_INTERACT_RESTRICT": true
+        "DECISION_VISIBILITY_CONTENT_INTERACTION_RESTRICTED": true
       },
       "expected": true
     },
@@ -156,8 +156,8 @@
       "variable": "visibility_restriction",
       "inputs": {
         "DECISION_VISIBILITY_CONTENT_DEMOTED": false,
-        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICT": false,
-        "DECISION_VISIBILITY_CONTENT_INTERACT_RESTRICT": false,
+        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICTED": false,
+        "DECISION_VISIBILITY_CONTENT_INTERACTION_RESTRICTED": false,
         "DECISION_VISIBILITY_CONTENT_LABELLED": false
       },
       "expected": false
