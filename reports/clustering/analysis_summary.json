@@ -1,0 +1,60 @@
+{
+  "input_file": "C:\\Users\\cypri\\SM_SI\\SM2\\media_cyfrowe\\amc-projekt\\data\\processed\\engineered_dataset.csv",
+  "platform_column": "platform_name",
+  "category_column": "category",
+  "count_column": "count",
+  "weight_definition": "Every source row contributes its count-column value to weighted numerators and denominators.",
+  "count_interpretation": "The project plan describes count as the number of decisions represented by an aggregate row; the prepared local Parquet has a non-null Int64 count column.",
+  "profile_rows": 39,
+  "source_rows": 1341968,
+  "total_weighted_count": 63590477.0,
+  "platforms": [
+    "Instagram",
+    "TikTok",
+    "YouTube"
+  ],
+  "observed_platform_count": 3,
+  "violation_categories": [
+    "STATEMENT_CATEGORY_CONSUMER_INFORMATION",
+    "STATEMENT_CATEGORY_CYBER_VIOLENCE",
+    "STATEMENT_CATEGORY_DATA_PROTECTION_AND_PRIVACY_VIOLATIONS",
+    "STATEMENT_CATEGORY_ILLEGAL_OR_HARMFUL_SPEECH",
+    "STATEMENT_CATEGORY_INTELLECTUAL_PROPERTY_INFRINGEMENTS",
+    "STATEMENT_CATEGORY_NEGATIVE_EFFECTS_ON_CIVIC_DISCOURSE_OR_ELECTIONS",
+    "STATEMENT_CATEGORY_OTHER_VIOLATION_TC",
+    "STATEMENT_CATEGORY_PROTECTION_OF_MINORS",
+    "STATEMENT_CATEGORY_RISK_FOR_PUBLIC_SECURITY",
+    "STATEMENT_CATEGORY_SCAMS_AND_FRAUD",
+    "STATEMENT_CATEGORY_SELF_HARM",
+    "STATEMENT_CATEGORY_UNSAFE_AND_PROHIBITED_PRODUCTS",
+    "STATEMENT_CATEGORY_VIOLENCE",
+    "STATEMENT_CATEGORY_ANIMAL_WELFARE"
+  ],
+  "distance_metric": "Root mean squared Euclidean distance over features known for both profiles; average linkage of profile-pair distances.",
+  "distance_threshold": 0.1,
+  "distance_threshold_note": "The threshold is supplied by the analyst; inspect merge heights and sensitivity before interpreting cluster assignments.",
+  "clustering_features": {
+    "sanctions_only": [
+      "termination",
+      "suspension",
+      "content_removal",
+      "visibility_restriction"
+    ],
+    "sanctions_plus_automation": [
+      "termination",
+      "suspension",
+      "content_removal",
+      "visibility_restriction",
+      "full_automation"
+    ]
+  },
+  "unknown_handling": "UNKNOWN weight is reported separately; shares use known weighted count (TRUE + FALSE) as the denominator. Pairwise clustering distances use only features with known shares for both profiles; profiles with no known feature shares are excluded.",
+  "confidence_intervals": "Wilson 95% intervals are reported only for integer denominators; they treat represented decisions as independent and are descriptive, not a test of platform differences.",
+  "limitations": [
+    "At most three platforms are included; clustering platforms themselves is not a reliable typology.",
+    "Clusters are exploratory and do not establish causality.",
+    "Sanction indicators may co-occur and are not a single-class label.",
+    "Platform and violation-category labels are not clustering features.",
+    "No prediction model is implemented."
+  ]
+}

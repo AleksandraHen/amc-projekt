@@ -1,140 +1,95 @@
 import json
-import pandas as pd
 from pathlib import Path
+import sys
+
+import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+
+from feature_enginnering import evaluate
+
 
 CODEBOOK_PATH = PROJECT_ROOT / "config" / "codebook.json"
-GOLD_STANDARD_PATH = (PROJECT_ROOT / "data" / "gold_standard" / "gold_standard.json")
+GOLD_STANDARD_PATH = (
+    PROJECT_ROOT / "data" / "gold_standard" / "gold_standard.json"
+)
+REPORT_PATH = (
+    PROJECT_ROOT / "reports" / "instrument_validation"
+    / "gold_standard_report.csv"
+)
 
 with CODEBOOK_PATH.open("r", encoding="utf-8") as f:
-    codebook = json.load(f)
+    CODEBOOK = json.load(f)
 
 with GOLD_STANDARD_PATH.open("r", encoding="utf-8") as f:
-    gold = json.load(f)
-
-
-def to_bool(value):
-    if pd.isna(value):
-        return None
-
-    if isinstance(value, bool):
-        return value
-
-    value = str(value).strip().lower()
-
-    if value in ["true", "1", "1.0", "yes"]:
-        return True
-
-    if value in ["false", "0", "0.0", "no"]:
-        return False
-
-    return None
+    GOLD_STANDARD = json.load(f)
 
 
 def classify_automation(row):
-    detection = to_bool(row.get("automated_detection"))
-    decision = row.get("automated_decision")
-
-    if detection is None or pd.isna(decision):
-        return "UNKNOWN"
-
-    return (
-        detection is True
-        and str(decision).strip()
-        == "AUTOMATED_DECISION_FULLY"
-    )
+    definition = CODEBOOK["automation"]
+    rules = [
+        {
+            "variable": "automated_detection",
+            "equals": definition["rule"]["automated_detection"],
+        },
+        {
+            "variable": "automated_decision",
+            "equals": definition["rule"]["automated_decision"],
+        },
+    ]
+    return evaluate(row, rules, "AND")
 
 
 def classify_sanctions(row):
-    account = row.get("decision_account")
-    provision = row.get("decision_provision")
-
-    account = (
-        str(account).strip()
-        if pd.notna(account) else None
-    )
-    provision = (
-        str(provision).strip()
-        if pd.notna(provision) else None
-    )
-
     return {
-        "termination": (
-            account == "DECISION_ACCOUNT_TERMINATED"
-            or provision == "DECISION_PROVISION_TOTAL_TERMINATION"
-        ),
-        "suspension": (
-            account == "DECISION_ACCOUNT_SUSPENDED"
-            or (
-                provision is not None
-                and provision.startswith(
-                    "DECISION_PROVISION_PARTIAL_"
-                )
-            )
-        ),
-        "content_removal": (
-            to_bool(
-                row.get("DECISION_VISIBILITY_CONTENT_REMOVED")
-            ) is True
-            or to_bool(
-                row.get("DECISION_VISIBILITY_CONTENT_DISABLED")
-            ) is True
-        ),
-        "visibility_restriction": any(
-            to_bool(row.get(col)) is True
-            for col in [
-                "DECISION_VISIBILITY_CONTENT_DEMOTED",
-                "DECISION_VISIBILITY_CONTENT_AGE_RESTRICTED",
-                "DECISION_VISIBILITY_CONTENT_INTERACTION_RESTRICTED",
-                "DECISION_VISIBILITY_CONTENT_LABELLED",
-            ]
+        name: evaluate(
+            row,
+            definition["rules"],
+            definition.get("operator", "OR"),
         )
+        for name, definition in CODEBOOK["derived_variables"].items()
     }
 
 
-passed = 0
-failed = 0
-results = []
-
-for case in gold["test_cases"]:
+def classify_case(case):
     inputs = case["inputs"]
-    test_id = case["id"]
-    variable = case.get("variable", "")
+    variable = case.get("variable", CODEBOOK["automation"]["output_variable"])
 
-    if test_id.startswith("AUTO"):
-        actual = classify_automation(inputs)
+    if variable == CODEBOOK["automation"]["output_variable"]:
+        return classify_automation(inputs)
 
-    else:
-        sanctions = classify_sanctions(inputs)
+    return classify_sanctions(inputs).get(variable)
 
-        if variable in sanctions:
-            actual = sanctions[variable]
-        else:
-            actual = sanctions.get(variable)
 
-    expected = case["expected"]
-    status = actual == expected
+def main():
+    results = []
+    for case in GOLD_STANDARD["test_cases"]:
+        actual = classify_case(case)
+        expected = case["expected"]
+        results.append(
+            {
+                "test_id": case["id"],
+                "expected": expected,
+                "actual": actual,
+                "status": "PASS" if actual == expected else "FAIL",
+            }
+        )
 
-    passed += int(status)
-    failed += int(not status)
+    report = pd.DataFrame(results)
+    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    report.to_csv(REPORT_PATH, index=False, encoding="utf-8")
 
-    results.append({
-        "test_id": test_id,
-        "expected": expected,
-        "actual": actual,
-        "status": "PASS" if status else "FAIL"
-    })
+    passed = int((report["status"] == "PASS").sum())
+    failed = len(report) - passed
+    print(report)
+    print("\nLiczba testów:", len(results))
+    print("PASS:", passed)
+    print("FAIL:", failed)
 
-report = pd.DataFrame(results)
-report.to_csv("gold_standard_report.csv", index=False)
+    if failed:
+        raise SystemExit(1)
 
-print(report)
-print("\nLiczba testów:", len(results))
-print("PASS:", passed)
-print("FAIL:", failed)
 
-if failed == 0:
-    print("ALL TESTS PASSED")
-else:
-    print("Wykryto rozbieżności")
+if __name__ == "__main__":
+    main()

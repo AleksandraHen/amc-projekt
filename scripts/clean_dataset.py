@@ -28,16 +28,6 @@ def clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
 
     df = df.drop(columns=existing_columns)
 
-    cols_to_drop = [
-        col for col in df.columns
-        if col.startswith((
-            "STATEMENT_CATEGORY_",
-            "KEYWORD_",
-        ))
-    ]
-
-    df = df.drop(columns=cols_to_drop)
-
     return df
 
 

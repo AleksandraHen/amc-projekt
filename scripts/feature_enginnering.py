@@ -12,10 +12,17 @@ UNKNOWN = "UNKNOWN"
 def check_rule(row, rule):
     column = rule["variable"]
 
-    if column not in row.index or pd.isna(row[column]):
+    if column not in row:
         return UNKNOWN
 
     value = row[column]
+    if pd.isna(value):
+        return UNKNOWN
+
+    if isinstance(value, str):
+        value = value.strip()
+        if not value or value.upper() in ("UNKNOWN", "NAN", "NONE", "<NA>"):
+            return UNKNOWN
 
     if "equals" in rule:
         expected = rule["equals"]
@@ -23,12 +30,15 @@ def check_rule(row, rule):
         if isinstance(expected, bool):
             value = str(value).strip().lower()
 
-            if value in ("true", "yes"):
+            if value in ("true", "1", "1.0", "yes"):
                 value = True
-            elif value in ("false", "no"):
+            elif value in ("false", "0", "0.0", "no"):
                 value = False
             else:
                 return UNKNOWN
+
+        elif isinstance(expected, str):
+            value = str(value).strip()
 
         return value == expected
 
@@ -40,20 +50,22 @@ def check_rule(row, rule):
 
 def evaluate(row, rules, operator="OR"):
     results = [check_rule(row, rule) for rule in rules]
+    if not results:
+        raise ValueError("At least one rule is required.")
 
     if operator == "OR":
         if True in results:
             return True
         if all(value is False for value in results):
             return False
-        return False
+        return UNKNOWN
 
     if operator == "AND":
         if False in results:
             return False
         if all(value is True for value in results):
             return True
-        return False
+        return UNKNOWN
 
     raise ValueError(f"Unknown operator: {operator}")
 
@@ -68,7 +80,7 @@ def main():
     with open(CODEBOOK_PATH, encoding="utf-8") as f:
         codebook = json.load(f)
 
-    df = pd.read_csv(INPUT_PATH)
+    df = pd.read_csv(INPUT_PATH, low_memory=False)
     print("Wczytano dane:", df.shape)
 
     automation = codebook["automation"]

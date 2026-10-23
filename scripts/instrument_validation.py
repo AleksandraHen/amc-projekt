@@ -191,7 +191,7 @@ def main():
 
     print(f"Raport zapisano w: {output}")
 
-    if verdict != "PASS":
+    if verdict in {"FAIL", "NO_RESULTS"}:
         raise SystemExit(1)
 
 

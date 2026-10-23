@@ -161,6 +161,73 @@
         "DECISION_VISIBILITY_CONTENT_LABELLED": false
       },
       "expected": false
+    },
+    {
+      "id": "AUTO_005",
+      "variable": "full_automation",
+      "inputs": {
+        "automated_detection": true,
+        "automated_decision": null
+      },
+      "expected": "UNKNOWN"
+    },
+    {
+      "id": "AUTO_006",
+      "variable": "full_automation",
+      "inputs": {
+        "automated_detection": null,
+        "automated_decision": "AUTOMATED_DECISION_NOT_AUTOMATED"
+      },
+      "expected": false
+    },
+    {
+      "id": "DER_015",
+      "variable": "termination",
+      "inputs": {
+        "decision_account": "DECISION_ACCOUNT_SUSPENDED",
+        "decision_provision": null
+      },
+      "expected": "UNKNOWN"
+    },
+    {
+      "id": "DER_016",
+      "variable": "termination",
+      "inputs": {
+        "decision_account": null,
+        "decision_provision": null
+      },
+      "expected": "UNKNOWN"
+    },
+    {
+      "id": "DER_017",
+      "variable": "content_removal",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_REMOVED": false,
+        "DECISION_VISIBILITY_CONTENT_DISABLED": null
+      },
+      "expected": "UNKNOWN"
+    },
+    {
+      "id": "DER_018",
+      "variable": "visibility_restriction",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_DEMOTED": false,
+        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICTED": null,
+        "DECISION_VISIBILITY_CONTENT_INTERACTION_RESTRICTED": false,
+        "DECISION_VISIBILITY_CONTENT_LABELLED": null
+      },
+      "expected": "UNKNOWN"
+    },
+    {
+      "id": "DER_019",
+      "variable": "visibility_restriction",
+      "inputs": {
+        "DECISION_VISIBILITY_CONTENT_DEMOTED": false,
+        "DECISION_VISIBILITY_CONTENT_AGE_RESTRICTED": null,
+        "DECISION_VISIBILITY_CONTENT_INTERACTION_RESTRICTED": true,
+        "DECISION_VISIBILITY_CONTENT_LABELLED": null
+      },
+      "expected": true
     }
   ]
 }

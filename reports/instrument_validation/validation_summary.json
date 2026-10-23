@@ -1,11 +1,11 @@
 {
   "verdict": "WARN",
   "dataset_rows": 1341968,
-  "gold_cases": 18,
-  "validation_results": 18,
+  "gold_cases": 25,
+  "validation_results": 25,
   "status_counts": {
-    "PASS": 15,
-    "NOT_OBSERVED": 3
+    "PASS": 17,
+    "NOT_OBSERVED": 8
   },
   "results": [
     {
@@ -205,6 +205,83 @@
       "matching_rows": 1312726,
       "mismatching_rows": 0,
       "error": ""
+    },
+    {
+      "case": "AUTO_005",
+      "variable": "full_automation",
+      "expected": "UNKNOWN",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
+    },
+    {
+      "case": "AUTO_006",
+      "variable": "full_automation",
+      "expected": "FALSE",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
+    },
+    {
+      "case": "DER_015",
+      "variable": "termination",
+      "expected": "UNKNOWN",
+      "actual_values": "{\"UNKNOWN\": 24}",
+      "status": "PASS",
+      "rows": 24,
+      "matching_rows": 24,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_016",
+      "variable": "termination",
+      "expected": "UNKNOWN",
+      "actual_values": "{\"UNKNOWN\": 918513}",
+      "status": "PASS",
+      "rows": 918513,
+      "matching_rows": 918513,
+      "mismatching_rows": 0,
+      "error": ""
+    },
+    {
+      "case": "DER_017",
+      "variable": "content_removal",
+      "expected": "UNKNOWN",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
+    },
+    {
+      "case": "DER_018",
+      "variable": "visibility_restriction",
+      "expected": "UNKNOWN",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
+    },
+    {
+      "case": "DER_019",
+      "variable": "visibility_restriction",
+      "expected": "TRUE",
+      "actual_values": "",
+      "status": "NOT_OBSERVED",
+      "rows": 0,
+      "matching_rows": 0,
+      "mismatching_rows": 0,
+      "error": "No rows matched the test inputs."
     }
   ]
 }
