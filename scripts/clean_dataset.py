@@ -1,4 +1,13 @@
-def clean_dataset(df):
+from pathlib import Path
+import pandas as pd
+from load_dataset import load_dataset
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+INPUT_PATH = PROJECT_ROOT / "data" / "dataset_3_platforms_sep_01_29.parquet"
+OUTPUT_PATH = PROJECT_ROOT / "data" / "processed" / "cleaned_dataset.csv"
+
+
+def clean_dataset(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
     columns_to_drop = [
@@ -29,11 +38,14 @@ def clean_dataset(df):
 
     df = df.drop(columns=cols_to_drop)
 
-    df.to_csv("cleaned_dataset.csv", index=False)
-
-
-    print("Usunięto kolumny stałe:", len(cols_to_drop))
-    print("Usunięto pozostałe kolumny:", len(existing_columns))
-    print("Pozostałe kolumny:", df.shape[1])
-
     return df
+
+
+if __name__ == "__main__":
+    df = load_dataset(INPUT_PATH)
+    print("Wczytano:", df.shape)
+    df = clean_dataset(df)
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(OUTPUT_PATH, index=False)
+    print("Zapisano oczyszczone dane:", OUTPUT_PATH)
+    print("Końcowy rozmiar:", df.shape)

@@ -1,4 +1,3 @@
-
 import json
 import pandas as pd
 from pathlib import Path
@@ -86,8 +85,8 @@ def classify_sanctions(row):
             to_bool(row.get(col)) is True
             for col in [
                 "DECISION_VISIBILITY_CONTENT_DEMOTED",
-                "DECISION_VISIBILITY_CONTENT_AGE_RESTRICT",
-                "DECISION_VISIBILITY_CONTENT_INTERACT_RESTRICT",
+                "DECISION_VISIBILITY_CONTENT_AGE_RESTRICTED",
+                "DECISION_VISIBILITY_CONTENT_INTERACTION_RESTRICTED",
                 "DECISION_VISIBILITY_CONTENT_LABELLED",
             ]
         )

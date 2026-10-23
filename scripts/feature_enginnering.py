@@ -3,17 +3,11 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-input = ROOT / "data" / "processed" / "cleaned_dataset.csv" 
-output = ROOT / "data" / "processed" / "engineered_dataset.csv"
-
-
-with open(ROOT / "config" / "codebook.json", encoding="utf-8") as f:
-    codebook = json.load(f)
-
-df = pd.read_csv(input)
+INPUT_PATH = ROOT / "data" / "processed" / "cleaned_dataset.csv"
+OUTPUT_PATH = ROOT / "data" / "processed" / "engineered_dataset.csv"
+CODEBOOK_PATH = ROOT / "config" / "codebook.json"
 
 UNKNOWN = "UNKNOWN"
-
 
 def check_rule(row, rule):
     column = rule["variable"]
@@ -64,25 +58,51 @@ def evaluate(row, rules, operator="OR"):
     raise ValueError(f"Unknown operator: {operator}")
 
 
-automation = codebook["automation"]
+def main():
+    if not INPUT_PATH.exists():
+        raise FileNotFoundError(f"Nie znaleziono danych: {INPUT_PATH}")
 
-rules = [
-    {
-        "variable": "automated_detection",
-        "equals": automation["rule"]["automated_detection"],
-    },
-    {
-        "variable": "automated_decision",
-        "equals": automation["rule"]["automated_decision"],
-    },
-]
+    if not CODEBOOK_PATH.exists():
+        raise FileNotFoundError(f"Nie znaleziono codebooka: {CODEBOOK_PATH}")
 
-df[automation["output_variable"]] = df.apply( lambda row: evaluate(row, rules, "AND"),axis=1,)
+    with open(CODEBOOK_PATH, encoding="utf-8") as f:
+        codebook = json.load(f)
 
-for name, definition in codebook["derived_variables"].items():
+    df = pd.read_csv(INPUT_PATH)
+    print("Wczytano dane:", df.shape)
 
-    df[name] = df.apply(  lambda row: evaluate( row, definition["rules"], definition.get("operator", "OR"),), axis=1,)
+    automation = codebook["automation"]
 
-output.parent.mkdir(parents=True, exist_ok=True)
-df.to_csv(output, index=False, encoding="utf-8")
+    rules = [
+        {
+            "variable": "automated_detection",
+            "equals": automation["rule"]["automated_detection"],
+        },
+        {
+            "variable": "automated_decision",
+            "equals": automation["rule"]["automated_decision"],
+        },
+    ]
 
+    df[automation["output_variable"]] = df.apply(
+        lambda row: evaluate(row, rules, "AND"),
+        axis=1,
+    )
+
+    for name, definition in codebook["derived_variables"].items():
+        df[name] = df.apply(
+            lambda row: evaluate(
+                row,
+                definition["rules"],
+                definition.get("operator", "OR"),
+            ),
+            axis=1,
+        )
+
+    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(OUTPUT_PATH, index=False, encoding="utf-8")
+
+
+
+if __name__ == "__main__":
+    main()
